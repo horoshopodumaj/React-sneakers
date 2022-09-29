@@ -1,8 +1,8 @@
 function App() {
     return (
-        <div className="wrapper">
-            <header>
-                <div className="headerLeft">
+        <div className="wrapper clear">
+            <header className="d-flex justify-between">
+                <div className="d-flex align-center">
                     <img width={40} height={40} src="./img/logo.png" />
                     <div className="headerInfo">
                         <h3>react sneakers</h3>
@@ -11,11 +11,11 @@ function App() {
                 </div>
                 <ul className="headerRight">
                     <li>
-                        <svg />
+                        <img width={18} height={18} src="./img/cart.svg" />
                         <span>1205 руб</span>
                     </li>
                     <li>
-                        <svg />
+                        <img width={18} height={18} src="./img/user.svg" />
                     </li>
                 </ul>
             </header>

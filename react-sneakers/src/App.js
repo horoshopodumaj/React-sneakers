@@ -11,7 +11,7 @@ function App() {
                     />
                     <div>
                         <h3 className="text-uppercase">react sneakers</h3>
-                        <p>Магазин лучших кроссовок</p>
+                        <p className="opacity-5">Магазин лучших кроссовок</p>
                     </div>
                 </div>
                 <ul className="d-flex">

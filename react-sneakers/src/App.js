@@ -46,6 +46,21 @@ function App() {
                             />
                         </div>
                     </div>
+                    <div className="cartTotalBlock">
+                        <ul>
+                            <li className="d-flex">
+                                <span>Итого: </span>
+                                <div></div>
+                                <b>21 498 руб. </b>
+                            </li>
+                            <li className="d-flex">
+                                <span>Налог 5%: </span>
+                                <div></div>
+                                <b>1074 руб. </b>
+                            </li>
+                        </ul>
+                        <button>Оформить заказ</button>
+                    </div>
                 </div>
             </div>
             <header className="d-flex justify-between align-center p-40">

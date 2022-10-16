@@ -3,14 +3,23 @@ import { useState } from "react";
 
 const Card = (props) => {
     const [isAdded, setIsAdded] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
 
-    const handleClick = () => {
+    const handleClickCart = () => {
         setIsAdded(!isAdded);
+    };
+
+    const handleClickLike = () => {
+        setIsLiked(!isLiked);
     };
     return (
         <div className={style.card}>
             <div className={style.favorite}>
-                <img src="./img/unlike.svg" alt="unlike" />
+                <img
+                    onClick={handleClickLike}
+                    src={isLiked ? "./img/like.svg" : "./img/unlike.svg"}
+                    alt="unlike"
+                />
             </div>
             <img width={133} height={112} src={props.img} alt="1" />
             <h5>{props.name}</h5>
@@ -21,7 +30,7 @@ const Card = (props) => {
                 </div>
                 <img
                     className={style.plus}
-                    onClick={handleClick}
+                    onClick={handleClickCart}
                     src={isAdded ? "./img/checked.svg" : "./img/plus.svg"}
                     alt="plus"
                 />

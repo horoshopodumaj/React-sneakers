@@ -1,7 +1,9 @@
-export default function Card(props) {
+import style from "./card.module.scss";
+
+const Card = (props) => {
     return (
-        <div className="card">
-            <div className="favorite">
+        <div className={style.card}>
+            <div className={style.favorite}>
                 <img src="./img/unlike.svg" alt="unlike" />
             </div>
             <img width={133} height={112} src={props.img} alt="1" />
@@ -22,4 +24,6 @@ export default function Card(props) {
             </div>
         </div>
     );
-}
+};
+
+export default Card;

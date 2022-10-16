@@ -99,6 +99,8 @@ function App() {
                             price={sneaker.price}
                             img={sneaker.img}
                             key={sneaker.key}
+                            addFavorite={() => {}}
+                            addCart={() => {}}
                         />
                     ))}
                 </div>

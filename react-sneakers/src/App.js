@@ -1,7 +1,9 @@
+import Card from "./components/Card";
+
 function App() {
     return (
         <div className="wrapper clear">
-            <div className="overlay">
+            <div style={{ display: "none" }} className="overlay">
                 <div className="drawer">
                     <h2 className="mb-30 d-flex justify-between">
                         Корзина{" "}
@@ -111,33 +113,7 @@ function App() {
                 </div>
 
                 <div className="d-flex">
-                    <div className="card">
-                        <div className="favorite">
-                            <img src="./img/unlike.svg" alt="unlike" />
-                        </div>
-
-                        <img
-                            width={133}
-                            height={112}
-                            src="./img/sneakers/1.jpg"
-                            alt="1"
-                        />
-                        <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-                        <div className="d-flex justify-between align-center">
-                            <div className="d-flex flex-column">
-                                <span>Цена:</span>
-                                <b>12 999 RUB</b>
-                            </div>
-                            <button className="button">
-                                <img
-                                    width={11}
-                                    height={11}
-                                    src="./img/plus.svg"
-                                    alt="plus"
-                                />
-                            </button>
-                        </div>
-                    </div>
+                    <Card />
                     <div className="card">
                         <img
                             width={133}

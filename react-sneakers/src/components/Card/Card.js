@@ -1,11 +1,12 @@
 import style from "./card.module.scss";
 import { useState } from "react";
 
-const Card = (props) => {
+const Card = ({ name, img, price, addCart }) => {
     const [isAdded, setIsAdded] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
 
     const handleClickCart = () => {
+        addCart({ name, img, price });
         setIsAdded(!isAdded);
     };
 
@@ -21,12 +22,12 @@ const Card = (props) => {
                     alt="unlike"
                 />
             </div>
-            <img width={133} height={112} src={props.img} alt="1" />
-            <h5>{props.name}</h5>
+            <img width={133} height={112} src={img} alt="1" />
+            <h5>{name}</h5>
             <div className="d-flex justify-between align-center">
                 <div className="d-flex flex-column">
                     <span>Цена:</span>
-                    <b>{props.price} RUB</b>
+                    <b>{price} RUB</b>
                 </div>
                 <img
                     className={style.plus}

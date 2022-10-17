@@ -20,13 +20,18 @@ function App() {
         !cartItems.some((e) => e.id === item.id) &&
             setCartItems((prev) => [...prev, item]);
     };
+    const deleteOrder = (id) => {
+        setCartItems(cartItems.filter((e) => e.id !== id));
+    };
 
     return (
         <div className="wrapper clear">
             {cartOpened && (
                 <Drawer
                     items={cartItems}
+                    key={cartItems.map((item) => item.key)}
                     closeCart={() => setCartOpened(!cartOpened)}
+                    deleteOrder={deleteOrder}
                 />
             )}
             <Header onClickCart={() => setCartOpened(true)} />
@@ -51,6 +56,7 @@ function App() {
                             addCart={(item) => {
                                 addCart(item);
                             }}
+                            deleteOrder={deleteOrder}
                         />
                     ))}
                 </div>

@@ -1,4 +1,4 @@
-export default function Drawer({ closeCart, items = [] }) {
+export default function Drawer({ closeCart, items = [], deleteOrder }) {
     return (
         <div className="overlay">
             <div className="drawer">
@@ -25,6 +25,7 @@ export default function Drawer({ closeCart, items = [] }) {
                                 <b>{item.price} руб.</b>
                             </div>
                             <img
+                                onClick={() => deleteOrder(item.id)}
                                 className="removeBtn"
                                 src="./img/remove.svg"
                                 alt="remove"

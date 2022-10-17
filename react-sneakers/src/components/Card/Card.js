@@ -8,6 +8,7 @@ const Card = (props) => {
     const handleClickCart = (name, img, price, id) => {
         props.addCart({ name, img, price, id });
         setIsAdded(!isAdded);
+        isAdded && props.deleteOrder(id);
     };
 
     const handleClickLike = () => {

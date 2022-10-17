@@ -17,7 +17,8 @@ function App() {
     }, []);
 
     const addCart = (item) => {
-        setCartItems((prev) => [...prev, item]);
+        !cartItems.some((e) => e.id === item.id) &&
+            setCartItems((prev) => [...prev, item]);
     };
 
     return (
@@ -44,6 +45,7 @@ function App() {
                             name={sneaker.name}
                             price={sneaker.price}
                             img={sneaker.img}
+                            id={sneaker.key}
                             key={sneaker.key}
                             addFavorite={() => {}}
                             addCart={(item) => {

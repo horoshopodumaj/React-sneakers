@@ -82,7 +82,9 @@ function App() {
     const [cartOpened, setCartOpened] = useState(false);
     return (
         <div className="wrapper clear">
-            {cartOpened ? <Drawer /> : null}
+            {cartOpened && (
+                <Drawer closeCart={() => setCartOpened(!cartOpened)} />
+            )}
 
             <Header onClickCart={() => setCartOpened(true)} />
             <div className="content p-40">

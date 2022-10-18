@@ -7,6 +7,7 @@ export default function Header(props) {
                     width={40}
                     height={40}
                     src="./img/logo.png"
+                    alt="Logo"
                 />
                 <div>
                     <h3 className="text-uppercase">react sneakers</h3>
@@ -20,11 +21,17 @@ export default function Header(props) {
                         width={18}
                         height={18}
                         src="./img/cart.svg"
+                        alt="cart"
                     />
                     <span>1205 руб</span>
                 </li>
                 <li>
-                    <img width={18} height={18} src="./img/user.svg" />
+                    <img
+                        width={18}
+                        height={18}
+                        src="./img/user.svg"
+                        alt="user"
+                    />
                 </li>
             </ul>
         </header>

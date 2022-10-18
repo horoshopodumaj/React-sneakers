@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 function App() {
     const [items, setItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
+    const [searchValue, setSearchValue] = useState("");
     const [cartOpened, setCartOpened] = useState(false);
 
     useEffect(() => {
@@ -24,6 +25,11 @@ function App() {
         setCartItems(cartItems.filter((e) => e.id !== id));
     };
 
+    const onChangeSearchInput = (event) => {
+        //console.log(event.target.value);
+        setSearchValue(event.target.value);
+    };
+
     return (
         <div className="wrapper clear">
             {cartOpened && (
@@ -37,28 +43,50 @@ function App() {
             <Header onClickCart={() => setCartOpened(true)} />
             <div className="content p-40">
                 <div className="d-flex align-center mb-40 justify-between">
-                    <h1>Все кроссовки</h1>
+                    <h1>
+                        {searchValue
+                            ? `Поиск по запросу: "${searchValue}"`
+                            : "Все кроссовки"}
+                    </h1>
                     <div className="search-block d-flex">
                         <img src="/img/search.svg" alt="search" />
-                        <input placeholder="Поиск..." />
+                        {searchValue && (
+                            <img
+                                onClick={() => setSearchValue("")}
+                                className="clear cu-p"
+                                src="./img/remove.svg"
+                                alt="clear"
+                            />
+                        )}
+                        <input
+                            value={searchValue}
+                            onChange={onChangeSearchInput}
+                            placeholder="Поиск..."
+                        />
                     </div>
                 </div>
 
                 <div className="d-flex flex-wrap card-container">
-                    {items.map((sneaker) => (
-                        <Card
-                            name={sneaker.name}
-                            price={sneaker.price}
-                            img={sneaker.img}
-                            id={sneaker.key}
-                            key={sneaker.key}
-                            addFavorite={() => {}}
-                            addCart={(item) => {
-                                addCart(item);
-                            }}
-                            deleteOrder={deleteOrder}
-                        />
-                    ))}
+                    {items
+                        .filter((item) =>
+                            item.name
+                                .toLowerCase()
+                                .includes(searchValue.toLowerCase())
+                        )
+                        .map((sneaker) => (
+                            <Card
+                                name={sneaker.name}
+                                price={sneaker.price}
+                                img={sneaker.img}
+                                id={sneaker.key}
+                                key={sneaker.key}
+                                addFavorite={() => {}}
+                                addCart={(item) => {
+                                    addCart(item);
+                                }}
+                                deleteOrder={deleteOrder}
+                            />
+                        ))}
                 </div>
             </div>
         </div>

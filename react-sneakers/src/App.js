@@ -1,9 +1,10 @@
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
+import Favorites from "./pages/Favorites";
 
 function App() {
     const [items, setItems] = useState([]);
@@ -58,9 +59,23 @@ function App() {
                 />
             )}
             <Header onClickCart={() => setCartOpened(true)} />
-            <Route>
-                <Home />
-            </Route>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <Home
+                            items={items}
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue}
+                            onChangeSearchInput={onChangeSearchInput}
+                            onFavorite={onFavorite}
+                            addCart={addCart}
+                            deleteOrder={deleteOrder}
+                        />
+                    }
+                />
+                <Route path="/favorites" element={<Favorites />} />
+            </Routes>
         </div>
     );
 }

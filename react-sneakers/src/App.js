@@ -32,17 +32,21 @@ function App() {
     }, []);
 
     const addCart = async (item) => {
-        if (cartItems.find((obj) => obj.id === item.id)) {
-            axios.delete(
-                `https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${item.id}`
-            );
-            setCartItems((prev) => prev.filter((e) => e.id !== item.id));
-        } else {
-            const { data } = await axios.post(
-                "https://634d55e6f5d2cc648ea33890.mockapi.io/cart",
-                item
-            );
-            setCartItems((prev) => [...prev, data]);
+        try {
+            if (cartItems.find((obj) => obj.id === item.id)) {
+                axios.delete(
+                    `https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${item.id}`
+                );
+                setCartItems((prev) => prev.filter((e) => e.id !== item.id));
+            } else {
+                const { data } = await axios.post(
+                    "https://634d55e6f5d2cc648ea33890.mockapi.io/cart",
+                    item
+                );
+                setCartItems((prev) => [...prev, data]);
+            }
+        } catch (error) {
+            alert("Что-то пошло не так");
         }
     };
     const deleteOrder = (id) => {
@@ -51,16 +55,20 @@ function App() {
     };
 
     const onFavorite = async (item) => {
-        if (favorites.find((obj) => obj.id === item.id)) {
-            axios.delete(
-                `https://634d55e6f5d2cc648ea33890.mockapi.io/favorites/${item.id}`
-            );
-        } else {
-            const { data } = await axios.post(
-                "https://634d55e6f5d2cc648ea33890.mockapi.io/favorites",
-                item
-            );
-            setFavorites((prev) => [...prev, data]);
+        try {
+            if (favorites.find((obj) => obj.id === item.id)) {
+                axios.delete(
+                    `https://634d55e6f5d2cc648ea33890.mockapi.io/favorites/${item.id}`
+                );
+            } else {
+                const { data } = await axios.post(
+                    "https://634d55e6f5d2cc648ea33890.mockapi.io/favorites",
+                    item
+                );
+                setFavorites((prev) => [...prev, data]);
+            }
+        } catch (error) {
+            alert("Что-то пошло не так");
         }
     };
 

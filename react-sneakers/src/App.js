@@ -2,6 +2,7 @@ import Card from "./components/Card";
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
     const [items, setItems] = useState([]);
@@ -10,23 +11,29 @@ function App() {
     const [cartOpened, setCartOpened] = useState(false);
 
     useEffect(() => {
-        fetch("https://634d55e6f5d2cc648ea33890.mockapi.io/items")
+        axios
+            .get("https://634d55e6f5d2cc648ea33890.mockapi.io/items")
             .then((res) => {
-                return res.json();
-            })
-            .then((res) => setItems(res));
+                setItems(res.data);
+            });
+        axios
+            .get("https://634d55e6f5d2cc648ea33890.mockapi.io/cart")
+            .then((res) => {
+                setCartItems(res.data);
+            });
     }, []);
 
     const addCart = (item) => {
-        !cartItems.some((e) => e.id === item.id) &&
-            setCartItems((prev) => [...prev, item]);
+        axios.post("https://634d55e6f5d2cc648ea33890.mockapi.io/cart", item);
+        //!cartItems.some((e) => e.num === item.num) &&
+        setCartItems((prev) => [...prev, item]);
     };
     const deleteOrder = (id) => {
-        setCartItems(cartItems.filter((e) => e.id !== id));
+        axios.delete(`https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${id}`);
+        setCartItems((prev) => prev.filter((e) => e.id !== id));
     };
 
     const onChangeSearchInput = (event) => {
-        //console.log(event.target.value);
         setSearchValue(event.target.value);
     };
 
@@ -35,7 +42,7 @@ function App() {
             {cartOpened && (
                 <Drawer
                     items={cartItems}
-                    key={cartItems.map((item) => item.key)}
+                    key={cartItems.map((item) => item.num)}
                     closeCart={() => setCartOpened(!cartOpened)}
                     deleteOrder={deleteOrder}
                 />
@@ -78,7 +85,7 @@ function App() {
                                 name={sneaker.name}
                                 price={sneaker.price}
                                 img={sneaker.img}
-                                id={sneaker.key}
+                                num={sneaker.key}
                                 key={sneaker.key}
                                 addFavorite={() => {}}
                                 addCart={(item) => {

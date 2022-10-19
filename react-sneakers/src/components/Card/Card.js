@@ -1,14 +1,14 @@
 import style from "./card.module.scss";
 import { useState } from "react";
 
-const Card = (props) => {
+const Card = ({ name, img, price, num, addCart }) => {
     const [isAdded, setIsAdded] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
 
-    const handleClickCart = (name, img, price, id) => {
-        props.addCart({ name, img, price, id });
+    const handleClickCart = () => {
+        addCart({ name, img, price, num });
         setIsAdded(!isAdded);
-        isAdded && props.deleteOrder(id);
+        //isAdded && props.deleteOrder(num);
     };
 
     const handleClickLike = () => {
@@ -23,23 +23,16 @@ const Card = (props) => {
                     alt="unlike"
                 />
             </div>
-            <img width={133} height={112} src={props.img} alt="1" />
-            <h5>{props.name}</h5>
+            <img width={133} height={112} src={img} alt="1" />
+            <h5>{name}</h5>
             <div className="d-flex justify-between align-center">
                 <div className="d-flex flex-column">
                     <span>Цена:</span>
-                    <b>{props.price} RUB</b>
+                    <b>{price} RUB</b>
                 </div>
                 <img
                     className={style.plus}
-                    onClick={() =>
-                        handleClickCart(
-                            props.name,
-                            props.img,
-                            props.price,
-                            props.id
-                        )
-                    }
+                    onClick={() => handleClickCart()}
                     src={isAdded ? "./img/checked.svg" : "./img/plus.svg"}
                     alt="plus"
                 />

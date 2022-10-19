@@ -24,12 +24,26 @@ function App() {
             .then((res) => {
                 setCartItems(res.data);
             });
+        axios
+            .get("https://634d55e6f5d2cc648ea33890.mockapi.io/favorites")
+            .then((res) => {
+                setFavorites(res.data);
+            });
     }, []);
 
     const addCart = (item) => {
-        axios.post("https://634d55e6f5d2cc648ea33890.mockapi.io/cart", item);
-        //!cartItems.some((e) => e.num === item.num) &&
-        setCartItems((prev) => [...prev, item]);
+        if (cartItems.find((obj) => obj.id === item.id)) {
+            axios.delete(
+                `https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${item.id}`
+            );
+            setCartItems((prev) => prev.filter((e) => e.id !== item.id));
+        } else {
+            axios.post(
+                "https://634d55e6f5d2cc648ea33890.mockapi.io/cart",
+                item
+            );
+            setCartItems((prev) => [...prev, item]);
+        }
     };
     const deleteOrder = (id) => {
         axios.delete(`https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${id}`);
@@ -37,11 +51,18 @@ function App() {
     };
 
     const onFavorite = (item) => {
-        axios.post(
-            "https://634d55e6f5d2cc648ea33890.mockapi.io/favorites",
-            item
-        );
-        setFavorites((prev) => [...prev, item]);
+        if (favorites.find((obj) => obj.id === item.id)) {
+            axios.delete(
+                `https://634d55e6f5d2cc648ea33890.mockapi.io/favorites/${item.id}`
+            );
+            setFavorites((prev) => prev.filter((e) => e.id !== item.id));
+        } else {
+            axios.post(
+                "https://634d55e6f5d2cc648ea33890.mockapi.io/favorites",
+                item
+            );
+            setFavorites((prev) => [...prev, item]);
+        }
     };
 
     const onChangeSearchInput = (event) => {
@@ -53,7 +74,7 @@ function App() {
             {cartOpened && (
                 <Drawer
                     items={cartItems}
-                    key={cartItems.map((item) => item.num)}
+                    key={cartItems.map((item) => item.id)}
                     closeCart={() => setCartOpened(!cartOpened)}
                     deleteOrder={deleteOrder}
                 />
@@ -74,7 +95,16 @@ function App() {
                         />
                     }
                 />
-                <Route path="/favorites" element={<Favorites />} />
+                <Route
+                    path="/favorites"
+                    element={
+                        <Favorites
+                            items={favorites}
+                            onFavorite={onFavorite}
+                            key={items.map((item) => item.id)}
+                        />
+                    }
+                />
             </Routes>
         </div>
     );

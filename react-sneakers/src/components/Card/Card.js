@@ -1,18 +1,26 @@
 import style from "./card.module.scss";
 import { useState } from "react";
 
-const Card = ({ name, img, price, num, addCart, addFavorite }) => {
+const Card = ({
+    name,
+    img,
+    price,
+    id,
+    addCart,
+    onFavorite,
+    isFavorite = false,
+}) => {
     const [isAdded, setIsAdded] = useState(false);
-    const [isLiked, setIsLiked] = useState(false);
+    const [isLiked, setIsLiked] = useState(isFavorite);
 
     const handleClickCart = () => {
-        addCart({ name, img, price, num });
+        addCart({ id, name, img, price });
         setIsAdded(!isAdded);
         //isAdded && props.deleteOrder(num);
     };
 
     const handleClickLike = () => {
-        addFavorite({ name, img, price, num });
+        onFavorite({ id, name, img, price });
         setIsLiked(!isLiked);
     };
     return (

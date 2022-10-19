@@ -45,18 +45,15 @@ export default function Home({
                     )
                     .map((sneaker) => (
                         <Card
-                            name={sneaker.name}
-                            price={sneaker.price}
-                            img={sneaker.img}
-                            num={sneaker.key}
-                            key={sneaker.key}
-                            addFavorite={(item) => {
+                            key={sneaker.id}
+                            onFavorite={(item) => {
                                 onFavorite(item);
                             }}
                             addCart={(item) => {
                                 addCart(item);
                             }}
                             deleteOrder={deleteOrder}
+                            {...sneaker}
                         />
                     ))}
             </div>

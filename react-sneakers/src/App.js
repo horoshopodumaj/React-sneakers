@@ -7,6 +7,7 @@ import axios from "axios";
 function App() {
     const [items, setItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
+    const [favorites, setFavorites] = useState([]);
     const [searchValue, setSearchValue] = useState("");
     const [cartOpened, setCartOpened] = useState(false);
 
@@ -31,6 +32,14 @@ function App() {
     const deleteOrder = (id) => {
         axios.delete(`https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${id}`);
         setCartItems((prev) => prev.filter((e) => e.id !== id));
+    };
+
+    const onFavorite = (item) => {
+        axios.post(
+            "https://634d55e6f5d2cc648ea33890.mockapi.io/favorites",
+            item
+        );
+        setFavorites((prev) => [...prev, item]);
     };
 
     const onChangeSearchInput = (event) => {
@@ -87,7 +96,9 @@ function App() {
                                 img={sneaker.img}
                                 num={sneaker.key}
                                 key={sneaker.key}
-                                addFavorite={() => {}}
+                                addFavorite={(item) => {
+                                    onFavorite(item);
+                                }}
                                 addCart={(item) => {
                                     addCart(item);
                                 }}

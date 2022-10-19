@@ -1,7 +1,7 @@
 import style from "./card.module.scss";
 import { useState } from "react";
 
-const Card = ({ name, img, price, num, addCart }) => {
+const Card = ({ name, img, price, num, addCart, addFavorite }) => {
     const [isAdded, setIsAdded] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
 
@@ -12,6 +12,7 @@ const Card = ({ name, img, price, num, addCart }) => {
     };
 
     const handleClickLike = () => {
+        addFavorite({ name, img, price, num });
         setIsLiked(!isLiked);
     };
     return (

@@ -38,7 +38,10 @@ const Card = ({
             <div className="d-flex justify-between align-center">
                 <div className="d-flex flex-column">
                     <span>Цена:</span>
-                    <b>{price} RUB</b>
+                    <b>
+                        {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
+                        RUB
+                    </b>
                 </div>
                 <img
                     className={style.plus}

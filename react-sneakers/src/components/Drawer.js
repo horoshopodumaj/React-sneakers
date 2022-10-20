@@ -24,7 +24,15 @@ export default function Drawer({ closeCart, items = [], deleteOrder }) {
                                     ></div>
                                     <div className="mr-20 flex">
                                         <p className="mb-5">{item.name}</p>
-                                        <b>{item.price} руб.</b>
+                                        <b>
+                                            {item.price
+                                                .toString()
+                                                .replace(
+                                                    /\B(?=(\d{3})+(?!\d))/g,
+                                                    " "
+                                                )}{" "}
+                                            руб.
+                                        </b>
                                     </div>
                                     <img
                                         onClick={() => {

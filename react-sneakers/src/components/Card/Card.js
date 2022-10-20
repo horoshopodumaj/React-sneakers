@@ -10,14 +10,14 @@ const Card = ({
     deleteOrder,
     onFavorite,
     isFavorite = false,
+    added = false,
 }) => {
-    const [isAdded, setIsAdded] = useState(false);
+    const [isAdded, setIsAdded] = useState(added);
     const [isLiked, setIsLiked] = useState(isFavorite);
 
     const handleClickCart = () => {
         addCart({ id, name, img, price });
         setIsAdded(!isAdded);
-        //isAdded && deleteOrder(id);
     };
 
     const handleClickLike = () => {

@@ -14,30 +14,34 @@ function App() {
     const [cartOpened, setCartOpened] = useState(false);
 
     useEffect(() => {
-        axios
-            .get("https://634d55e6f5d2cc648ea33890.mockapi.io/items")
-            .then((res) => {
-                setItems(res.data);
-            });
-        axios
-            .get("https://634d55e6f5d2cc648ea33890.mockapi.io/cart")
-            .then((res) => {
-                setCartItems(res.data);
-            });
-        axios
-            .get("https://634d55e6f5d2cc648ea33890.mockapi.io/favorites")
-            .then((res) => {
-                setFavorites(res.data);
-            });
+        async function fetchData() {
+            const cartResponse = await axios.get(
+                "https://634d55e6f5d2cc648ea33890.mockapi.io/cart"
+            );
+            const favoriteResponse = await axios.get(
+                "https://634d55e6f5d2cc648ea33890.mockapi.io/favorites"
+            );
+            const itemsResponse = await axios.get(
+                "https://634d55e6f5d2cc648ea33890.mockapi.io/items"
+            );
+
+            setItems(itemsResponse.data);
+            setCartItems(cartResponse.data);
+            setFavorites(favoriteResponse.data);
+        }
+
+        fetchData();
     }, []);
 
     const addCart = async (item) => {
         try {
-            if (cartItems.find((obj) => obj.id === item.id)) {
+            if (cartItems.find((obj) => Number(obj.id) === Number(item.id))) {
                 axios.delete(
                     `https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${item.id}`
                 );
-                setCartItems((prev) => prev.filter((e) => e.id !== item.id));
+                setCartItems((prev) =>
+                    prev.filter((e) => Number(e.id) !== Number(item.id))
+                );
             } else {
                 const { data } = await axios.post(
                     "https://634d55e6f5d2cc648ea33890.mockapi.io/cart",
@@ -93,6 +97,7 @@ function App() {
                     element={
                         <Home
                             items={items}
+                            cartItems={cartItems}
                             searchValue={searchValue}
                             setSearchValue={setSearchValue}
                             onChangeSearchInput={onChangeSearchInput}

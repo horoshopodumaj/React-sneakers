@@ -3,6 +3,7 @@ import Card from "../components/Card";
 
 export default function Home({
     items,
+    cartItems,
     searchValue,
     setSearchValue,
     onChangeSearchInput,
@@ -52,6 +53,9 @@ export default function Home({
                             addCart={(item) => {
                                 addCart(item);
                             }}
+                            added={cartItems.some(
+                                (obj) => Number(obj.id) === Number(sneaker.id)
+                            )}
                             deleteOrder={deleteOrder}
                             {...sneaker}
                         />

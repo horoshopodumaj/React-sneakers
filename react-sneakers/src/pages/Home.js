@@ -10,7 +10,32 @@ export default function Home({
     onFavorite,
     addCart,
     deleteOrder,
+    isLoading,
 }) {
+    const renderItems = () => {
+        const filtredItems = items.filter((item) =>
+            item.name.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        return (isLoading ? [...Array(12)] : filtredItems).map(
+            (sneaker, index) => (
+                <Card
+                    key={index}
+                    onFavorite={(item) => {
+                        onFavorite(item);
+                    }}
+                    addCart={(item) => {
+                        addCart(item);
+                    }}
+                    added={cartItems.some(
+                        (obj) => Number(obj.id) === Number(sneaker.id)
+                    )}
+                    deleteOrder={deleteOrder}
+                    isLoading={isLoading}
+                    {...sneaker}
+                />
+            )
+        );
+    };
     return (
         <div className="content p-40">
             <div className="d-flex align-center mb-40 justify-between">
@@ -38,28 +63,7 @@ export default function Home({
             </div>
 
             <div className="d-flex flex-wrap card-container">
-                {items
-                    .filter((item) =>
-                        item.name
-                            .toLowerCase()
-                            .includes(searchValue.toLowerCase())
-                    )
-                    .map((sneaker) => (
-                        <Card
-                            key={sneaker.id}
-                            onFavorite={(item) => {
-                                onFavorite(item);
-                            }}
-                            addCart={(item) => {
-                                addCart(item);
-                            }}
-                            added={cartItems.some(
-                                (obj) => Number(obj.id) === Number(sneaker.id)
-                            )}
-                            deleteOrder={deleteOrder}
-                            {...sneaker}
-                        />
-                    ))}
+                {renderItems()}
             </div>
         </div>
     );

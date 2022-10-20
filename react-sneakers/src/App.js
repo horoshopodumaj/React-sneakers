@@ -12,6 +12,7 @@ function App() {
     const [favorites, setFavorites] = useState([]);
     const [searchValue, setSearchValue] = useState("");
     const [cartOpened, setCartOpened] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
@@ -25,9 +26,11 @@ function App() {
                 "https://634d55e6f5d2cc648ea33890.mockapi.io/items"
             );
 
-            setItems(itemsResponse.data);
+            setIsLoading(false);
+
             setCartItems(cartResponse.data);
             setFavorites(favoriteResponse.data);
+            setItems(itemsResponse.data);
         }
 
         fetchData();
@@ -104,6 +107,7 @@ function App() {
                             onFavorite={onFavorite}
                             addCart={addCart}
                             deleteOrder={deleteOrder}
+                            isLoading={isLoading}
                         />
                     }
                 />

@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "../components/Card";
+import AppContext from "../context";
 
 export default function Home({
-    items,
-    cartItems,
     searchValue,
     setSearchValue,
     onChangeSearchInput,
@@ -12,6 +11,7 @@ export default function Home({
     deleteOrder,
     isLoading,
 }) {
+    const { items, cartItems } = useContext(AppContext);
     const renderItems = () => {
         const filtredItems = items.filter((item) =>
             item.name.toLowerCase().includes(searchValue.toLowerCase())
@@ -36,6 +36,7 @@ export default function Home({
             )
         );
     };
+
     return (
         <div className="content p-40">
             <div className="d-flex align-center mb-40 justify-between">

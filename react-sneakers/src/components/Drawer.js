@@ -3,6 +3,8 @@ import AppContext from "../context";
 import Info from "./Info";
 import axios from "axios";
 
+const delay = () => new Promise((resolve) => setTimeout(resolve, 1000));
+
 function Drawer({ closeCart, items = [], deleteOrder }) {
     const { cartItems, setCartItems } = useContext(AppContext);
     const [isOrdered, setIsOrdered] = useState(false);
@@ -17,8 +19,16 @@ function Drawer({ closeCart, items = [], deleteOrder }) {
                 { items: cartItems }
             );
             setOrderId(data.id);
-            setIsOrdered(true);
+            setIsOrdered(!isOrdered);
             setCartItems([]);
+
+            for (let i = 0; i < cartItems.length; i++) {
+                const item = cartItems[i];
+                await axios.delete(
+                    `https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${item.id}`
+                );
+                await delay();
+            }
         } catch (error) {
             alert("Не удалось создать заказ");
         }

@@ -1,3 +1,4 @@
+import React from "react";
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router-dom";
@@ -5,6 +6,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
+
+export const AppContext = React.createContext({});
 
 function App() {
     const [items, setItems] = useState([]);
@@ -84,45 +87,46 @@ function App() {
     };
 
     return (
-        <div className="wrapper clear">
-            {cartOpened && (
-                <Drawer
-                    items={cartItems}
-                    key={cartItems.map((item) => item.id)}
-                    closeCart={() => setCartOpened(!cartOpened)}
-                    deleteOrder={deleteOrder}
-                />
-            )}
-            <Header onClickCart={() => setCartOpened(true)} />
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <Home
-                            items={items}
-                            cartItems={cartItems}
-                            searchValue={searchValue}
-                            setSearchValue={setSearchValue}
-                            onChangeSearchInput={onChangeSearchInput}
-                            onFavorite={onFavorite}
-                            addCart={addCart}
-                            deleteOrder={deleteOrder}
-                            isLoading={isLoading}
-                        />
-                    }
-                />
-                <Route
-                    path="/favorites"
-                    element={
-                        <Favorites
-                            items={favorites}
-                            onFavorite={onFavorite}
-                            key={items.map((item) => item.id)}
-                        />
-                    }
-                />
-            </Routes>
-        </div>
+        <AppContext.Provider value={{ items, cartItems, favorites }}>
+            <div className="wrapper clear">
+                {cartOpened && (
+                    <Drawer
+                        items={cartItems}
+                        key={cartItems.map((item) => item.id)}
+                        closeCart={() => setCartOpened(!cartOpened)}
+                        deleteOrder={deleteOrder}
+                    />
+                )}
+                <Header onClickCart={() => setCartOpened(true)} />
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <Home
+                                items={items}
+                                cartItems={cartItems}
+                                searchValue={searchValue}
+                                setSearchValue={setSearchValue}
+                                onChangeSearchInput={onChangeSearchInput}
+                                onFavorite={onFavorite}
+                                addCart={addCart}
+                                deleteOrder={deleteOrder}
+                                isLoading={isLoading}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/favorites"
+                        element={
+                            <Favorites
+                                onFavorite={onFavorite}
+                                key={items.map((item) => item.id)}
+                            />
+                        }
+                    />
+                </Routes>
+            </div>
+        </AppContext.Provider>
     );
 }
 

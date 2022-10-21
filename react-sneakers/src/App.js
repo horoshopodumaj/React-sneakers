@@ -6,8 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
-
-export const AppContext = React.createContext({});
+import AppContext from "./context";
 
 function App() {
     const [items, setItems] = useState([]);

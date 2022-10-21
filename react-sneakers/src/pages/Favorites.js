@@ -1,5 +1,5 @@
 import Card from "../components/Card";
-import { AppContext } from "../App";
+import AppContext from "../context";
 import { useContext } from "react";
 
 export default function Favorites({ onFavorite }) {

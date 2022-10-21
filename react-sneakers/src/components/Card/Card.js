@@ -60,13 +60,17 @@ const Card = ({
             ) : (
                 <>
                     <div className={style.favorite}>
-                        <img
-                            onClick={handleClickLike}
-                            src={
-                                isLiked ? "./img/like.svg" : "./img/unlike.svg"
-                            }
-                            alt="unlike"
-                        />
+                        {onFavorite && (
+                            <img
+                                onClick={handleClickLike}
+                                src={
+                                    isLiked
+                                        ? "./img/like.svg"
+                                        : "./img/unlike.svg"
+                                }
+                                alt="unlike"
+                            />
+                        )}
                     </div>
                     <img width="100%" height={135} src={img} alt="1" />
                     <h5>{name}</h5>
@@ -80,16 +84,18 @@ const Card = ({
                                 RUB
                             </b>
                         </div>
-                        <img
-                            className={style.plus}
-                            onClick={handleClickCart}
-                            src={
-                                isItemAdded(id)
-                                    ? "./img/checked.svg"
-                                    : "./img/plus.svg"
-                            }
-                            alt="plus"
-                        />
+                        {addCart && (
+                            <img
+                                className={style.plus}
+                                onClick={handleClickCart}
+                                src={
+                                    isItemAdded(id)
+                                        ? "./img/checked.svg"
+                                        : "./img/plus.svg"
+                                }
+                                alt="plus"
+                            />
+                        )}
                     </div>
                 </>
             )}

@@ -1,6 +1,29 @@
+import { useContext, useState } from "react";
+import AppContext from "../context";
 import Info from "./Info";
+import axios from "axios";
 
-export default function Drawer({ closeCart, items = [], deleteOrder }) {
+function Drawer({ closeCart, items = [], deleteOrder }) {
+    const { cartItems, setCartItems } = useContext(AppContext);
+    const [isOrdered, setIsOrdered] = useState(false);
+    const [orderId, setOrderId] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const onClickOrder = async () => {
+        try {
+            setIsLoading(true);
+            const { data } = await axios.post(
+                "https://634d55e6f5d2cc648ea33890.mockapi.io/orders",
+                { items: cartItems }
+            );
+            setOrderId(data.id);
+            setIsOrdered(true);
+            setCartItems([]);
+        } catch (error) {
+            alert("Не удалось создать заказ");
+        }
+        setIsLoading(false);
+    };
     return (
         <div className="overlay">
             <div className="drawer">
@@ -60,22 +83,34 @@ export default function Drawer({ closeCart, items = [], deleteOrder }) {
                                     <b>1074 руб. </b>
                                 </li>
                             </ul>
-                            <button className="greenButton">
-                                Оформить заказ{" "}
+                            <button
+                                disabled={isLoading}
+                                onClick={onClickOrder}
+                                className="greenButton"
+                            >
+                                {"Оформить заказ"}
                                 <img src="./img/arrow.svg" alt="arrow" />
                             </button>
                         </div>
                     </>
                 ) : (
                     <Info
-                        title={"Корзина пуста"}
+                        title={isOrdered ? "Заказ оформлен" : "Корзина пуста"}
                         description={
-                            "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
+                            isOrdered
+                                ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
+                                : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
                         }
-                        image="./img/cart-empty.jpg"
+                        image={
+                            isOrdered
+                                ? "./img/order.jpg"
+                                : "./img/cart-empty.jpg"
+                        }
                     />
                 )}
             </div>
         </div>
     );
 }
+
+export default Drawer;

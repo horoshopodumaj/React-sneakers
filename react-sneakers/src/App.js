@@ -7,6 +7,7 @@ import axios from "axios";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import AppContext from "./context";
+import Orders from "./pages/Orders";
 
 function App() {
     const [items, setItems] = useState([]);
@@ -137,6 +138,7 @@ function App() {
                             />
                         }
                     />
+                    <Route path="/orders" element={<Orders />} />
                 </Routes>
             </div>
         </AppContext.Provider>

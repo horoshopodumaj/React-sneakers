@@ -1,14 +1,15 @@
-import { useContext, useState } from "react";
-import AppContext from "../context";
-import Info from "./Info";
 import axios from "axios";
+import { useState } from "react";
+import { useCart } from "../hooks/useCart";
+
+import Info from "./Info";
 
 const delay = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
 function Drawer({ closeCart, items = [], deleteOrder }) {
-    const { cartItems, setCartItems } = useContext(AppContext);
-    const [isOrdered, setIsOrdered] = useState(false);
+    const { cartItems, setCartItems, totalPrice } = useCart();
     const [orderId, setOrderId] = useState(null);
+    const [isOrderComplete, setIsOrderComplete] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const onClickOrder = async () => {
@@ -19,7 +20,11 @@ function Drawer({ closeCart, items = [], deleteOrder }) {
                 { items: cartItems }
             );
             setOrderId(data.id);
-            setIsOrdered(!isOrdered);
+            //console.log(isLoading, 1);
+            //console.log(isOrderComplete, 2);
+            // console.log(data.id, 3);
+            setIsOrderComplete(true);
+            // console.log(isOrderComplete, 4);
             setCartItems([]);
 
             for (let i = 0; i < cartItems.length; i++) {
@@ -50,7 +55,10 @@ function Drawer({ closeCart, items = [], deleteOrder }) {
                     <>
                         <div className="items">
                             {items.map((item) => (
-                                <div className="cartItem d-flex align-center mb-20">
+                                <div
+                                    key={item.id}
+                                    className="cartItem d-flex align-center mb-20"
+                                >
                                     <div
                                         style={{
                                             backgroundImage: `url(${item.img})`,
@@ -85,12 +93,28 @@ function Drawer({ closeCart, items = [], deleteOrder }) {
                                 <li className="d-flex">
                                     <span>Итого: </span>
                                     <div></div>
-                                    <b>21 498 руб. </b>
+                                    <b>
+                                        {totalPrice
+                                            .toString()
+                                            .replace(
+                                                /\B(?=(\d{3})+(?!\d))/g,
+                                                " "
+                                            )}{" "}
+                                        RUB
+                                    </b>
                                 </li>
                                 <li className="d-flex">
                                     <span>Налог 5%: </span>
                                     <div></div>
-                                    <b>1074 руб. </b>
+                                    <b>
+                                        {Math.round((totalPrice / 100) * 5)
+                                            .toString()
+                                            .replace(
+                                                /\B(?=(\d{3})+(?!\d))/g,
+                                                " "
+                                            )}{" "}
+                                        RUB
+                                    </b>
                                 </li>
                             </ul>
                             <button
@@ -105,14 +129,16 @@ function Drawer({ closeCart, items = [], deleteOrder }) {
                     </>
                 ) : (
                     <Info
-                        title={isOrdered ? "Заказ оформлен" : "Корзина пуста"}
+                        title={
+                            isOrderComplete ? "Заказ оформлен" : "Корзина пуста"
+                        }
                         description={
-                            isOrdered
+                            isOrderComplete
                                 ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
                                 : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
                         }
                         image={
-                            isOrdered
+                            isOrderComplete
                                 ? "./img/order.jpg"
                                 : "./img/cart-empty.jpg"
                         }

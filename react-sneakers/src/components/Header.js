@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../hooks/useCart";
 
 export default function Header(props) {
+    const { totalPrice } = useCart();
     return (
         <header className="d-flex justify-between align-center p-40">
             <Link to="/">
@@ -27,7 +29,12 @@ export default function Header(props) {
                         src="./img/cart.svg"
                         alt="cart"
                     />
-                    <span>1205 руб</span>
+                    <span>
+                        {totalPrice
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
+                        RUB
+                    </span>
                 </li>
                 <li className="mr-20 cu-p">
                     <Link to="/favorites">

@@ -1,3 +1,5 @@
+import Info from "./Info";
+
 export default function Drawer({ closeCart, items = [], deleteOrder }) {
     return (
         <div className="overlay">
@@ -65,24 +67,13 @@ export default function Drawer({ closeCart, items = [], deleteOrder }) {
                         </div>
                     </>
                 ) : (
-                    <div className="cartEmpty d-flex align-center justify-center flex-column flex">
-                        <img
-                            className="mb-20"
-                            width="120px"
-                            height="120px"
-                            src="./img/cart-empty.jpg"
-                            alt="Empty"
-                        />
-                        <h2>Корзина пустая</h2>
-                        <p className="opacity-6">
-                            Добавьте хотя бы одну пару кроссовок, чтобы сделать
-                            заказ.
-                        </p>
-                        <button onClick={closeCart} className="greenButton">
-                            <img src="./img/arrow.svg" alt="Arrow" />
-                            Вернуться назад
-                        </button>
-                    </div>
+                    <Info
+                        title={"Корзина пуста"}
+                        description={
+                            "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
+                        }
+                        image="./img/cart-empty.jpg"
+                    />
                 )}
             </div>
         </div>

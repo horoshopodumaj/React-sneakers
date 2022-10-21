@@ -11,30 +11,25 @@ export default function Home({
     deleteOrder,
     isLoading,
 }) {
-    const { items, cartItems } = useContext(AppContext);
+    const { items } = useContext(AppContext);
     const renderItems = () => {
         const filtredItems = items.filter((item) =>
             item.name.toLowerCase().includes(searchValue.toLowerCase())
         );
-        return (isLoading ? [...Array(12)] : filtredItems).map(
-            (sneaker, index) => (
-                <Card
-                    key={index}
-                    onFavorite={(item) => {
-                        onFavorite(item);
-                    }}
-                    addCart={(item) => {
-                        addCart(item);
-                    }}
-                    added={cartItems.some(
-                        (obj) => Number(obj.id) === Number(sneaker.id)
-                    )}
-                    deleteOrder={deleteOrder}
-                    isLoading={isLoading}
-                    {...sneaker}
-                />
-            )
-        );
+        return (isLoading ? [...Array(12)] : filtredItems).map((sneaker) => (
+            <Card
+                key={sneaker && sneaker.id}
+                onFavorite={(item) => {
+                    onFavorite(item);
+                }}
+                addCart={(item) => {
+                    addCart(item);
+                }}
+                deleteOrder={deleteOrder}
+                isLoading={isLoading}
+                {...sneaker}
+            />
+        ));
     };
 
     return (

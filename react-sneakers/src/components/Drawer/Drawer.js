@@ -42,8 +42,10 @@ function Drawer({ closeCart, items = [], deleteOrder, opened }) {
         setIsLoading(false);
     };
     return (
-        <div className="overlay">
-            <div className="drawer">
+        <div
+            className={`${style.overlay} ${opened ? style.overlayVisible : ""}`}
+        >
+            <div className={style.drawer}>
                 <h2 className="mb-30 d-flex justify-between">
                     Корзина{" "}
                     <img

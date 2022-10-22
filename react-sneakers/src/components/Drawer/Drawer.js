@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
-import { useCart } from "../hooks/useCart";
 
-import Info from "./Info";
+import { useState } from "react";
+import { useCart } from "../../hooks/useCart";
+import Info from "../Info";
+
+import style from "./drawer.module.scss";
 
 const delay = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
-function Drawer({ closeCart, items = [], deleteOrder }) {
+function Drawer({ closeCart, items = [], deleteOrder, opened }) {
     const { cartItems, setCartItems, totalPrice } = useCart();
     const [orderId, setOrderId] = useState(null);
     const [isOrderComplete, setIsOrderComplete] = useState(false);

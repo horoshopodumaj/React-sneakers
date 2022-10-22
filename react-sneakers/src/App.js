@@ -1,5 +1,4 @@
 import React from "react";
-import Drawer from "./components/Drawer";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -8,6 +7,7 @@ import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import AppContext from "./context";
 import Orders from "./pages/Orders";
+import Drawer from "./components/Drawer";
 
 function App() {
     const [items, setItems] = useState([]);
@@ -105,14 +105,13 @@ function App() {
             }}
         >
             <div className="wrapper clear">
-                {cartOpened && (
-                    <Drawer
-                        items={cartItems}
-                        key={cartItems.map((item) => item.id)}
-                        closeCart={() => setCartOpened(!cartOpened)}
-                        deleteOrder={deleteOrder}
-                    />
-                )}
+                <Drawer
+                    items={cartItems}
+                    key={cartItems.map((item) => item.id)}
+                    closeCart={() => setCartOpened(!cartOpened)}
+                    deleteOrder={deleteOrder}
+                    opened={cartOpened}
+                />
                 <Header onClickCart={() => setCartOpened(true)} />
                 <Routes>
                     <Route

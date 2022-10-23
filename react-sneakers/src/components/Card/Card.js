@@ -10,20 +10,20 @@ const Card = ({
     price,
     id,
     addCart,
-    deleteOrder,
     onFavorite,
     isFavorite = false,
     isLoading = false,
 }) => {
     const { isItemAdded } = useContext(AppContext);
     const [isLiked, setIsLiked] = useState(isFavorite);
+    const goods = { id, parentId: id, name, img, price };
 
     const handleClickCart = () => {
-        addCart({ id, name, img, price });
+        addCart(goods);
     };
 
     const handleClickLike = () => {
-        onFavorite({ id, name, img, price });
+        onFavorite(goods);
         setIsLiked(!isLiked);
     };
     return (

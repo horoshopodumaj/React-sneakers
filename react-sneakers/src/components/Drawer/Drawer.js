@@ -32,7 +32,7 @@ function Drawer({ closeCart, items = [], deleteOrder, opened }) {
             for (let i = 0; i < cartItems.length; i++) {
                 const item = cartItems[i];
                 await axios.delete(
-                    `https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${item.id}`
+                    `https://634d55e6f5d2cc648ea33890.mockapi.io/cart/${item.parentId}`
                 );
                 await delay();
             }

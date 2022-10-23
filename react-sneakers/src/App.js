@@ -126,6 +126,9 @@ function App() {
     const isItemAdded = (id) => {
         return cartItems.some((obj) => +obj.parentId === +id);
     };
+    const isFavoriteItem = (id) => {
+        return favorites.some((obj) => +obj.parentId === +id);
+    };
 
     return (
         <AppContext.Provider
@@ -136,6 +139,7 @@ function App() {
                 isItemAdded,
                 setCartOpened,
                 setCartItems,
+                isFavoriteItem,
             }}
         >
             <div className="wrapper clear">

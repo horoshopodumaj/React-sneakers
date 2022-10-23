@@ -14,7 +14,7 @@ const Card = ({
     isFavorite = false,
     isLoading = false,
 }) => {
-    const { isItemAdded } = useContext(AppContext);
+    const { isItemAdded, isFavoriteItem } = useContext(AppContext);
     const [isLiked, setIsLiked] = useState(isFavorite);
     const goods = { id, parentId: id, name, img, price };
 
@@ -64,7 +64,7 @@ const Card = ({
                             <img
                                 onClick={handleClickLike}
                                 src={
-                                    isLiked
+                                    isFavoriteItem(id)
                                         ? "./img/like.svg"
                                         : "./img/unlike.svg"
                                 }

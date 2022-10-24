@@ -22,11 +22,7 @@ function Drawer({ closeCart, items = [], deleteOrder, opened }) {
                 { items: cartItems }
             );
             setOrderId(data.id);
-            //console.log(isLoading, 1);
-            //console.log(isOrderComplete, 2);
-            // console.log(data.id, 3);
             setIsOrderComplete(true);
-            // console.log(isOrderComplete, 4);
             setCartItems([]);
 
             for (let i = 0; i < cartItems.length; i++) {

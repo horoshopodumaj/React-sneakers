@@ -65,8 +65,8 @@ const Card = ({
                                 onClick={handleClickLike}
                                 src={
                                     isFavoriteItem(id)
-                                        ? "./img/like.svg"
-                                        : "./img/unlike.svg"
+                                        ? "img/like.svg"
+                                        : "img/unlike.svg"
                                 }
                                 alt="unlike"
                             />
@@ -90,8 +90,8 @@ const Card = ({
                                 onClick={handleClickCart}
                                 src={
                                     isItemAdded(id)
-                                        ? "./img/checked.svg"
-                                        : "./img/plus.svg"
+                                        ? "img/checked.svg"
+                                        : "img/plus.svg"
                                 }
                                 alt="plus"
                             />

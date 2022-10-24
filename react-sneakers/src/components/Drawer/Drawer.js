@@ -51,7 +51,7 @@ function Drawer({ closeCart, items = [], deleteOrder, opened }) {
                     <img
                         onClick={closeCart}
                         className="removeBtn cu-p"
-                        src="./img/remove.svg"
+                        src="img/remove.svg"
                         alt="remove"
                     />
                 </h2>
@@ -86,7 +86,7 @@ function Drawer({ closeCart, items = [], deleteOrder, opened }) {
                                             deleteOrder(item.id);
                                         }}
                                         className="removeBtn"
-                                        src="./img/remove.svg"
+                                        src="img/remove.svg"
                                         alt="remove"
                                     />
                                 </div>
@@ -127,7 +127,7 @@ function Drawer({ closeCart, items = [], deleteOrder, opened }) {
                                 className="greenButton"
                             >
                                 {"Оформить заказ"}
-                                <img src="./img/arrow.svg" alt="arrow" />
+                                <img src="img/arrow.svg" alt="arrow" />
                             </button>
                         </div>
                     </>
@@ -143,8 +143,8 @@ function Drawer({ closeCart, items = [], deleteOrder, opened }) {
                         }
                         image={
                             isOrderComplete
-                                ? "./img/order.jpg"
-                                : "./img/cart-empty.jpg"
+                                ? "img/order.jpg"
+                                : "img/cart-empty.jpg"
                         }
                     />
                 )}

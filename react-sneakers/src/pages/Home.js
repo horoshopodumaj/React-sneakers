@@ -41,12 +41,12 @@ export default function Home({
                         : "Все кроссовки"}
                 </h1>
                 <div className="search-block d-flex">
-                    <img src="/img/search.svg" alt="search" />
+                    <img src="img/search.svg" alt="search" />
                     {searchValue && (
                         <img
                             onClick={() => setSearchValue("")}
                             className="clear cu-p"
-                            src="./img/remove.svg"
+                            src="img/remove.svg"
                             alt="clear"
                         />
                     )}
